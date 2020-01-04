@@ -73,7 +73,6 @@ void FreeCameraController::_process(float delta)
 
         if (rotate_left || rotate_right)
         {
-            //this->rotate(Vector3(0.0, 1.0, 0.0), rotation * delta);
             this->rotate_y(rotation * delta);
         }
     }
