@@ -1,0 +1,23 @@
+# System
+.DS_Store
+*.swp
+*.swo
+.vs/
+.idea/
+
+# C++
+/build/
+/cmake-build-*/
+*.so
+*.a
+
+# Godot
+.import/
+export.cfg
+export_presets.cfg
+.mono/
+data_*/
+
+# python
+__pycache__/
+*.pyc
