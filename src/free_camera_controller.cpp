@@ -4,8 +4,15 @@
 
 using namespace godot;
 
+#define DEFAULT_SPEED 30.0
+#define DEFAULT_MOUSE_SPEED 0.01
+
 void FreeCameraController::_register_methods()
 {
+    register_property<FreeCameraController, float>("speed", &FreeCameraController::speed, DEFAULT_SPEED,
+        GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_TYPE_STRING, "Camera movement speed");
+    register_property<FreeCameraController, float>("mouse_speed", &FreeCameraController::mouse_speed, DEFAULT_MOUSE_SPEED,
+        GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_TYPE_STRING, "Mouse movement speed");
     register_method("_ready", &FreeCameraController::_ready);
     register_method("_process", &FreeCameraController::_process);
     register_method("_input", &FreeCameraController::_input);
@@ -13,6 +20,8 @@ void FreeCameraController::_register_methods()
 
 FreeCameraController::FreeCameraController()
     : mouse_captured(false)
+    , speed(DEFAULT_SPEED)
+    , mouse_speed(DEFAULT_MOUSE_SPEED)
 {}
 
 FreeCameraController::~FreeCameraController()
@@ -28,7 +37,6 @@ void FreeCameraController::_ready()
 
 void FreeCameraController::_process(float delta)
 {
-    const float speed = 30.0;
     const float run_multiplier = 3.0;
 
     float movement_backwards = 0.0;
@@ -81,14 +89,13 @@ void FreeCameraController::_process(float delta)
 
 void FreeCameraController::_input(const Variant variant_event)
 {
-    Ref<InputEventMouseMotion> event = variant_event;
-    Godot::print("is_null {}", event.is_null());
-    Godot::print("is_valid {}", event.is_valid());
-    if (event.is_valid()) {
-        float mouse_speed = 0.01;
-        Vector2 relative_motion = event->get_relative() * mouse_speed;
-        this->rotate_object_local(Vector3(1.0, 0.0, 0.0), -relative_motion.y);
-        this->rotate_y(-relative_motion.x);
+    if (this->mouse_captured) {
+        Ref<InputEventMouseMotion> event = variant_event;
+        if (event.is_valid()) {
+            Vector2 relative_motion = event->get_relative() * this->mouse_speed;
+            this->rotate_object_local(Vector3(1.0, 0.0, 0.0), -relative_motion.y);
+            this->rotate_y(-relative_motion.x);
+        }
     }
 }
 

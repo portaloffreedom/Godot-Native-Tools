@@ -24,6 +24,8 @@ private:
 
 private:
     bool mouse_captured;
+    float speed;
+    float mouse_speed;
 };
 
 }
