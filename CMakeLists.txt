@@ -36,4 +36,21 @@ target_link_libraries(godot_tools
 
 # create the library directly in the right folder
 set_target_properties(godot_tools PROPERTIES
-	LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+    
+set(BITS 32)
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+	set(BITS 64)
+endif(CMAKE_SIZEOF_VOID_P EQUAL 8)
+
+string(TOLOWER ${CMAKE_SYSTEM_NAME} SYSTEM_NAME)
+# string(TOLOWER ${CMAKE_BUILD_TYPE} BUILD_TYPE)
+
+if(ANDROID)
+	# Added the android abi after system name
+	set(SYSTEM_NAME ${SYSTEM_NAME}.${ANDROID_ABI})
+	# Android does not have the bits at the end if you look at the main godot repo build
+	set_property(TARGET ${PROJECT_NAME} PROPERTY OUTPUT_NAME "${PROJECT_NAME}.${SYSTEM_NAME}")
+else()
+	set_property(TARGET ${PROJECT_NAME} PROPERTY OUTPUT_NAME "${PROJECT_NAME}.${SYSTEM_NAME}.${BITS}")
+endif()

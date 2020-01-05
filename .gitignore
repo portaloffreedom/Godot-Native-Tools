@@ -18,6 +18,8 @@ export_presets.cfg
 .mono/
 data_*/
 
+export/
+
 # python
 __pycache__/
 *.pyc
