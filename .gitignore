@@ -10,6 +10,8 @@
 /cmake-build-*/
 *.so
 *.a
+*.dll
+*.dylib
 
 # Godot
 .import/

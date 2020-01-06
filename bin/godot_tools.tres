@@ -1,7 +1,11 @@
 [gd_resource type="GDNativeLibrary" format=2]
 
 [resource]
+config_file = Object(ConfigFile,"script":null)
+
 entry/Android.arm64-v8a = "res://bin/libgodot_tools.android.arm64-v8a.so"
+entry/OSX.64 = "res://bin/libgodot_tools.darwin.64.dylib"
 entry/X11.64 = "res://bin/libgodot_tools.linux.64.so"
 dependency/Android.arm64-v8a = [  ]
+dependency/OSX.64 = [  ]
 dependency/X11.64 = [  ]
