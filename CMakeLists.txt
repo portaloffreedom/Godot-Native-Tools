@@ -26,16 +26,16 @@ set(GODOT_TOOLS_HEADERS
 
 set(BUILD_PATH ${CMAKE_SOURCE_DIR}/bin)
 
-add_library(godot_tools SHARED ${GODOT_TOOLS_SRC} ${GODOT_TOOLS_HEADERS})
-set_property(TARGET godot_tools PROPERTY POSITION_INDEPENDENT_CODE ON)
+add_library(${PROJECT_NAME} SHARED ${GODOT_TOOLS_SRC} ${GODOT_TOOLS_HEADERS})
+set_property(TARGET ${PROJECT_NAME} PROPERTY POSITION_INDEPENDENT_CODE ON)
 
-target_link_libraries(godot_tools
+target_link_libraries(${PROJECT_NAME}
     ${GODOT_CPP_LIB}
     godot-cpp
 )
 
 # create the library directly in the right folder
-set_target_properties(godot_tools PROPERTIES
+set_target_properties(${PROJECT_NAME} PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
     
 set(BITS 32)
